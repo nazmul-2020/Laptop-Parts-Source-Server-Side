@@ -19,7 +19,7 @@ async function run() {
     try {
         await client.connect();
         const productsCollection = client.db("Laptop-Parts-source").collection("products");
-        const ReviewsCollection = client.db("Laptop-Parts-source").collection("reviews");
+        const reviewsCollection = client.db("Laptop-Parts-source").collection("reviews");
 
 
 
@@ -40,8 +40,15 @@ async function run() {
         // GET method reviews route
         app.get('/reviews', async (req, res) => {
             const query = {};
-            const reviews = await ReviewsCollection.find(query).toArray();
+            const reviews = await reviewsCollection.find(query).toArray();
             res.send(reviews)
+        })
+
+          // POSt method reviews route
+          app.post('/reviews', async (req, res) => {
+            const reviews = req.body;
+            const result = await reviewsCollection.insertOne(reviews);
+            res.send(result);
         })
 
     }
