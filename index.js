@@ -20,6 +20,7 @@ async function run() {
         await client.connect();
         const productsCollection = client.db("Laptop-Parts-source").collection("products");
         const reviewsCollection = client.db("Laptop-Parts-source").collection("reviews");
+        const userCollection = client.db("Laptop-Parts-source").collection("user");
 
 
 
@@ -49,6 +50,20 @@ async function run() {
             const reviews = req.body;
             const result = await reviewsCollection.insertOne(reviews);
             res.send(result);
+        })
+
+         // PUT method user route
+         app.put('/user/:email', async (req, res) => {
+            const email = req.params.email;
+            const user = req.body
+            const filter = { email: email };
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: user
+            };
+            const result = await userCollection.updateOne(filter, updateDoc, options);
+            // const token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+            res.send({ result, token })
         })
 
     }
