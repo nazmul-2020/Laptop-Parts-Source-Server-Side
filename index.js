@@ -27,27 +27,23 @@ async function run() {
         // GET method products route
         app.get('/products', async (req, res) => {
             const query = {};
-            const products =await productsCollection.find(query).toArray();
+            const products = await productsCollection.find(query).toArray();
             res.send(products)
+        })
+        // POSt method products route
+        app.post('/products', async (req, res) => {
+            const products = req.body;
+            const result = await productsCollection.insertOne(products);
+            res.send(result);
         })
 
         // GET method reviews route
         app.get('/reviews', async (req, res) => {
             const query = {};
-            const reviews =await ReviewsCollection.find(query).toArray();
+            const reviews = await ReviewsCollection.find(query).toArray();
             res.send(reviews)
         })
 
-
-
-        /**
-          * API Naming Convention
-          * app.get('/booking') // get all bookings in this collection. or get more than one or by filter
-          * app.get('/booking/:id') // get a specific booking 
-          * app.post('/booking') // add a new booking
-          * app.patch('/booking/:id) //
-          * app.delete('/booking/:id) //
-         */
     }
 
     finally {
