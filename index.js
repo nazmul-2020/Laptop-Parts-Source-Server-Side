@@ -31,6 +31,13 @@ async function run() {
             res.send(products)
         })
 
+        // GET method reviews route
+        app.get('/reviews', async (req, res) => {
+            const query = {};
+            const reviews =await ReviewsCollection.find(query).toArray();
+            res.send(reviews)
+        })
+
 
 
         /**
