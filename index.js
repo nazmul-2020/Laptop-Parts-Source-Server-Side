@@ -54,6 +54,13 @@ async function run() {
             res.send(reviews)
         })
 
+        app.get('/reviews/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const reviews = await reviewsCollection.findOne(query);
+            res.send(reviews);
+        })
+
         // POSt method reviews route
         app.post('/reviews', async (req, res) => {
             const reviews = req.body;
