@@ -46,6 +46,7 @@ async function run() {
             const result = await productsCollection.insertOne(products);
             res.send(result);
         })
+        
 
         // GET method reviews route
         app.get('/reviews', async (req, res) => {
